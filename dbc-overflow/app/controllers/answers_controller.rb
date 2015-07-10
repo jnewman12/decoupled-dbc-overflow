@@ -49,6 +49,7 @@
 
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :update, :destroy]
+  before_action :allow_cross_domain
 
   # GET /answers
   # GET /answers.json
@@ -130,5 +131,11 @@ class AnswersController < ApplicationController
 
     def answer_params
       params.require(:answer).permit(:content, :question_id)
+    end
+
+    def allow_cross_domain
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, PATCH, DELETE, OPTIONS'
+      headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token'
     end
 end
